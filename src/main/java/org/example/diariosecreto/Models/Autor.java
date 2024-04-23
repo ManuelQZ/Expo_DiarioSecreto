@@ -25,7 +25,7 @@ public class Autor implements ManejoDiario {
         return diariosCreados;
     }
 
-    public void addDiario(Diario diario) {
+    private void addDiario(Diario diario) {
         this.diariosCreados.add(diario);
     }
 
@@ -54,7 +54,10 @@ public class Autor implements ManejoDiario {
     }
 
     @Override
-    public String guardarDiario() {
-        return null;
+    public String guardarDiario(Diario diario) {
+        diario.setAutor(this);
+        this.addDiario(diario);
+        return "Diario guardado con éxito";
     }
+
 }

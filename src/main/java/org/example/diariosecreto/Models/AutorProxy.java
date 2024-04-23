@@ -10,11 +10,7 @@ public class AutorProxy implements ManejoDiario {
     private String contrasena;
     private Autor autor;
 
-    public AutorProxy(String correo, String contrasena, Autor autor) {
-        this.correo = correo;
-        this.contrasena = contrasena;
-        this.autor = autor;
-
+    public AutorProxy() {
     }
 
     public boolean autenticar(){
@@ -26,12 +22,36 @@ public class AutorProxy implements ManejoDiario {
 
 
     @Override
-    public String guardarDiario() {
+    public String guardarDiario(Diario diario) {
         if (this.autenticar()){
-            autor.guardarDiario();
+            autor.guardarDiario(diario);
             return "Diario guardado con éxito";
         } else {
             return "Error de autenticación";
         }
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 }

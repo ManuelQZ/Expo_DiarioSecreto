@@ -6,10 +6,12 @@ public class GestorDiario {
 
     private ArrayList<Diario> diarios;
     private ArrayList<Autor> autores;
+    private AutorProxy autorTemporal;
 
     public GestorDiario(){
         this.diarios = new ArrayList<Diario>();
         this.autores = new ArrayList<Autor>();
+        this.autorTemporal = new AutorProxy();
     }
 
     public ArrayList<Diario> getDiarios(){
@@ -34,6 +36,10 @@ public class GestorDiario {
 
     public void removeAutor(Autor autor){
         this.autores.remove(autor);
+    }
+
+    public AutorProxy getAutorTemporal(){
+        return this.autorTemporal;
     }
 
 }

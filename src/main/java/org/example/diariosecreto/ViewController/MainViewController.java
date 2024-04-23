@@ -4,17 +4,27 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.example.diariosecreto.Controller.AutorController;
 import org.example.diariosecreto.Controller.DiarioController;
+import org.example.diariosecreto.Models.Autor;
 import org.example.diariosecreto.Models.Diario;
 
 public class MainViewController {
 
     Diario diarioProcesado;
 
+    AutorController autorController = new AutorController();
+
     DiarioController diarioController = new DiarioController();
+
+    ObservableList<Diario> listaDiarios = diarioController.getListaDiariosObservable();
     
 
     @FXML
@@ -61,12 +71,59 @@ public class MainViewController {
 
     @FXML
     void crearUsuario(ActionEvent event) {
+        String nombre = txtnombre.getText();
+        String correo = txtcorreo.getText();
+        String contrasena = txtcontrasena.getText();
+
+        if(nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()){
+            mostrarMensaje("Error", "Faltan datos", "Debe llenar todos los campos", Alert.AlertType.ERROR);
+        }else{
+            Autor autor = new Autor(nombre, correo, contrasena);
+            autorController.agregarAutor(autor);
+            limpiarCampos();
+            initView();
+        }
 
     }
 
     @FXML
     void guardarDiario(ActionEvent event) {
 
+//        String titulo = txtTitulo.getText();
+//        ArrayList<Diario> listaDiarios = diarioController.getListaDiarios();
+//
+//        for (Diario diario : listaDiarios) {
+//            if (titulo.equals(diario.getTitulo())) {
+//
+//                autorController.guardarDiario(txtcorreo.getText(), txtcontrasena.getText(), diario);
+//            }
+//        }
+        this.ventanaEmergente();
+
+    }
+
+    public void ventanaEmergente() {
+        // Crear etiqueta para la segunda ventana
+        Label label = new Label("¡Segunda Ventana!");
+
+        // Crear diseño de la segunda ventana
+        VBox root = new VBox();
+        root.getChildren().add(label);
+        Label labelNombre = new Label("Nombre:");
+        TextField textFieldNombre = new TextField();
+        Label labelEmail = new Label("Email:");
+        TextField textFieldEmail = new TextField();
+
+        // Crear botones
+        Button botonGuardar = new Button("Guardar");
+        Button botonCancelar = new Button("Cancelar");
+
+        // Configurar escena y mostrar la segunda ventana
+        Stage stage = new Stage();
+        Scene scene = new Scene(root, 200, 100);
+        stage.setScene(scene);
+        stage.setTitle("Segunda Ventana");
+        stage.show();
     }
 
     @FXML
@@ -79,11 +136,6 @@ public class MainViewController {
 
     }
 
-    private void inicializardatos() {
-
-
-
-    }
 
     private void mostrarMensaje(String title, String header, String message, Alert.AlertType type){
         Alert alert = new Alert(type);
@@ -101,7 +153,6 @@ public class MainViewController {
 
     private void initView(){
         initDataBinding();
-        obtenerUsuarios();
         tableUsuario.getItems().clear();
         tableUsuario.setItems(listaDiarios);
         listenerSelection();
@@ -127,7 +178,7 @@ public class MainViewController {
         columnDiario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
     }
 
-    private void obtenerDiarios () {
+    private ObservableList<Diario> obtenerDiarios () {
         return diarioController.getListaDiariosObservable();
     }
 
