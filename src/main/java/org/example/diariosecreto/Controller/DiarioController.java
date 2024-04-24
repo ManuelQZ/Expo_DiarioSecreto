@@ -10,13 +10,30 @@ import java.util.ArrayList;
 public class DiarioController {
 
     private ObservableList<Diario> listaDiariosObservable;
-
+    private Diario diarioTemporal;
     private ModelFactory factory;
+    private static DiarioController instance;
 
-    public DiarioController() {
+    private DiarioController() {
         this.listaDiariosObservable = FXCollections.observableArrayList();
+        this.diarioTemporal = null;
         this.factory = ModelFactory.getInstance();
         this.sincronizarData();
+    }
+
+    public static DiarioController getInstance() {
+        if (instance == null) {
+            instance = new DiarioController();
+        }
+        return instance;
+    }
+
+    public Diario getDiarioTemporal() {
+        return diarioTemporal;
+    }
+
+    public void setDiarioTemporal(Diario diarioTemporal) {
+        this.diarioTemporal = diarioTemporal;
     }
 
     public ObservableList<Diario> getListaDiariosObservable() {
@@ -38,7 +55,7 @@ public class DiarioController {
     }
 
     public ArrayList<Diario> getListaDiarios() {
-
+        sincronizarData();
         return this.factory.getGestorDiario().getDiarios();
     }
 }

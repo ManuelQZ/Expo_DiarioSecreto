@@ -13,6 +13,8 @@ public class AutorController {
     private ModelFactory factory;
     private String log;
 
+    private static AutorController instance;
+
 
     public AutorController() {
         this.factory = ModelFactory.getInstance();
@@ -33,6 +35,13 @@ public class AutorController {
             }
         }
         log = autorTemporal.guardarDiario(diario);
+    }
+
+    public static AutorController getInstance() {
+        if (instance == null) {
+            instance = new AutorController();
+        }
+        return instance;
     }
 
     public void agregarAutor(Autor autor) {
