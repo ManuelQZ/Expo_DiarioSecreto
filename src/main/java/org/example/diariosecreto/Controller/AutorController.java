@@ -1,14 +1,19 @@
 package org.example.diariosecreto.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.diariosecreto.Factory.ModelFactory;
 import org.example.diariosecreto.Models.Autor;
 import org.example.diariosecreto.Models.AutorProxy;
 import org.example.diariosecreto.Models.Diario;
-import org.example.diariosecreto.Models.GestorDiario;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AutorController {
+
+    private ObservableList<Autor> listaAutoresObservable;
 
     private ModelFactory factory;
     private String log;
@@ -17,7 +22,9 @@ public class AutorController {
 
 
     public AutorController() {
+        this.listaAutoresObservable = FXCollections.observableArrayList();
         this.factory = ModelFactory.getInstance();
+        this.sincronizarData();
     }
 
     public void guardarDiario(String correo, String  contrasena, Diario diario) {
@@ -52,4 +59,17 @@ public class AutorController {
     public String getLog() {
         return log;
     }
+
+    public ObservableList<Autor> getListaAutoresObservable() {
+        return listaAutoresObservable;
+    }
+
+    public List<Autor> getListaAutores() {
+        return null;
+    }
+
+    public void sincronizarData() {
+        this.listaAutoresObservable.addAll(this.factory.getGestorDiario().getAutores());
+    }
+
 }
