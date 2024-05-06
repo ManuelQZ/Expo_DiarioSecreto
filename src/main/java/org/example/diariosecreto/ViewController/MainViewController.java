@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,15 +39,6 @@ public class MainViewController {
     private Button btnVolver;
 
     @FXML
-    private TextField txtcorreo;
-
-    @FXML
-    private TableView<Diario> tableUsuario;
-
-    @FXML
-    private TextField txtcontrasena;
-
-    @FXML
     private Button btnCrearUsuario;
 
     @FXML
@@ -61,19 +51,37 @@ public class MainViewController {
     private TableColumn<Diario, String> columnCorreo;
 
     @FXML
+    private TableView<Diario> tableUsuario;
+
+    @FXML
+    private TableView<?> tbListaUsuarios;
+
+    @FXML
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtCorreo;
+
+    @FXML
+    private TextField txtClave;
+
+    @FXML
     private TextArea txtContenido;
 
     @FXML
     private TextField txtTitulo;
 
+
     @FXML
-    private TextField txtnombre;
+    void addUsuario(ActionEvent event) {
+
+    }
 
     @FXML
     void crearAutor(ActionEvent event) {
-        String nombre = txtnombre.getText();
-        String correo = txtcorreo.getText();
-        String contrasena = txtcontrasena.getText();
+        String nombre = txtNombre.getText();
+        String correo = txtCorreo.getText();
+        String contrasena = txtClave.getText();
 
         if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()){
             mostrarMensaje("Error", "Faltan datos", "Debe llenar todos los campos", Alert.AlertType.ERROR);
@@ -152,9 +160,9 @@ public class MainViewController {
     }
 
     private void limpiarCampos(){
-        txtnombre.setText("");
-        txtcorreo.setText("");
-        txtcontrasena.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtClave.setText("");
     }
 
     private void initView(){
