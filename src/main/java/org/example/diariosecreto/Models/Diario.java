@@ -34,5 +34,8 @@ public class Diario {
         this.autor = autor;
     }
 
+    public DiarioMemento crearMemento() {
+        return new DiarioMemento(this, titulo, contenido, autor);
+    }
 
 }
