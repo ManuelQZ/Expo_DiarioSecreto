@@ -3,7 +3,6 @@ package org.example.diariosecreto.ViewController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,10 +50,16 @@ public class MainViewController {
     private TableColumn<Diario, String> columnCorreo;
 
     @FXML
-    private TableView<Diario> tableUsuario;
+    private TableColumn<Autor, String> tableCorreoUsuario;
 
     @FXML
-    private TableView<?> tbListaUsuarios;
+    private TableColumn<Autor, String> tableNombreUsuario;
+
+    @FXML
+    private TableView<Autor> tableUsuario;
+
+    @FXML
+    private TableView<Diario> tableDiario;
 
     @FXML
     private TextField txtNombre;
@@ -76,6 +81,8 @@ public class MainViewController {
     void addUsuario(ActionEvent event) {
 
     }
+
+
 
     @FXML
     void crearAutor(ActionEvent event) {
@@ -149,8 +156,6 @@ public class MainViewController {
     }
 
 
-
-
     private void mostrarMensaje(String title, String header, String message, Alert.AlertType type){
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -167,13 +172,15 @@ public class MainViewController {
 
     private void initView(){
         initDataBinding();
+        tableDiario.getItems().clear();
+        tableDiario.setItems(diarioController.getListaDiariosObservable());
         tableUsuario.getItems().clear();
-        tableUsuario.setItems(diarioController.getListaDiariosObservable());
+        tableUsuario.setItems(autorController.getListaAutoresObservable());
         listenerSelection();
     }
 
     private void listenerSelection() {
-        tableUsuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableDiario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             mostrarInformacionDiario(newSelection);
             diarioProcesado = newSelection;
         });
@@ -187,9 +194,13 @@ public class MainViewController {
     }
 
     private void initDataBinding(){
+        //Esto para la tabla de Diario
         columnAutor.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAutor().getNombre()));
         columnCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAutor().getCorreo()));
         columnDiario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
+
+        //Esto es para la tabla de Usuario.
+        tableNombreUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tableCorreoUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
     }
 }
-

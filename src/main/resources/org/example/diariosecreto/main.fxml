@@ -27,7 +27,7 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="416.0" prefWidth="304.0">
                            <children>
-                              <TableView fx:id="tableUsuario" layoutX="20.0" layoutY="195.0" prefHeight="189.0" prefWidth="255.0">
+                              <TableView fx:id="tableDiario" layoutX="20.0" layoutY="195.0" prefHeight="189.0" prefWidth="255.0">
                                 <columns>
                                   <TableColumn fx:id="columnAutor" prefWidth="75.0" text="Autor" />
                                   <TableColumn fx:id="columnCorreo" prefWidth="95.0" text="Correo" />
@@ -40,7 +40,7 @@
                                        <content>
                                           <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
                                             <content>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="263.0">
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="147.0" prefWidth="263.0">
                                                    <children>
                                                       <GridPane layoutX="8.0" layoutY="5.0" prefHeight="93.0" prefWidth="236.0">
                                                         <columnConstraints>
@@ -71,12 +71,12 @@
                                           </ScrollPane>
                                        </content>
                                   </Tab>
-                                  <Tab text="Lista de usuarios">
+                                  <Tab fx:id="tabListaUsuario" text="Lista de usuarios">
                                        <content>
-                                          <TableView fx:id="tbListaUsuarios" prefHeight="138.0" prefWidth="248.0">
+                                          <TableView fx:id="tableUsuario" prefHeight="138.0" prefWidth="248.0">
                                             <columns>
-                                              <TableColumn prefWidth="124.0" text="Nombre" />
-                                              <TableColumn prefWidth="131.0" text="Correo" />
+                                              <TableColumn fx:id="tableNombreUsuario" prefWidth="124.0" text="Nombre" />
+                                              <TableColumn fx:id="tableCorreoUsuario" prefWidth="131.0" text="Correo" />
                                             </columns>
                                           </TableView>
                                        </content></Tab>
