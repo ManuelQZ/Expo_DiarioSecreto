@@ -59,5 +59,4 @@ public class Autor implements ManejoDiario {
         this.addDiario(diario);
         return "Diario guardado con éxito";
     }
-
 }
