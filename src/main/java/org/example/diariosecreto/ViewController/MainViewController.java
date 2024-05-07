@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.diariosecreto.App;
@@ -76,16 +77,8 @@ public class MainViewController {
     @FXML
     private TextField txtTitulo;
 
-
     @FXML
     void addUsuario(ActionEvent event) {
-
-    }
-
-
-
-    @FXML
-    void crearAutor(ActionEvent event) {
         String nombre = txtNombre.getText();
         String correo = txtCorreo.getText();
         String contrasena = txtClave.getText();
@@ -96,7 +89,6 @@ public class MainViewController {
             Autor autor = new Autor(nombre, correo, contrasena);
             autorController.agregarAutor(autor);
             limpiarCampos();
-            initView();
         }
 
     }
@@ -151,8 +143,12 @@ public class MainViewController {
 
     @FXML
     void initialize() {
-
         initView();
+
+        txtContenido.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Aquí puedes ejecutar el método que desees cada vez que el texto cambie
+            System.out.println("Texto cambiado: " + newValue);
+        });
     }
 
 

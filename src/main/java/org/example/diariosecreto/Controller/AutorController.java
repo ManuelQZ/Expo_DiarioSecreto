@@ -52,8 +52,8 @@ public class AutorController {
     }
 
     public void agregarAutor(Autor autor) {
-
         this.factory.getGestorDiario().addAutor(autor);
+        this.listaAutoresObservable.add(autor);
     }
 
     public String getLog() {
@@ -65,7 +65,7 @@ public class AutorController {
     }
 
     public List<Autor> getListaAutores() {
-        return null;
+        return factory.getGestorDiario().getAutores();
     }
 
     public void sincronizarData() {
