@@ -1,15 +1,28 @@
 package org.example.diariosecreto.Models;
 
 public class Historial {
-    private static DiarioMemento historial;
+    private DiarioMemento historial;
 
-    public static void generarHistorial(Diario diario) {
+    private Diario diario;
+
+    public Historial() {
+
+    }
+    public void generarHistorial(Diario diario) {
         historial = diario.crearMemento();
     }
 
-    public static void volver() {
+    public void volver() {
         if (historial != null) {
             historial.restore();
         }
+    }
+
+    public Diario getDiario() {
+        return diario;
+    }
+
+    public DiarioMemento getHistorial() {
+        return historial;
     }
 }

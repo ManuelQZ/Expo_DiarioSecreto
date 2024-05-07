@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.diariosecreto.App;
@@ -17,6 +16,7 @@ import org.example.diariosecreto.Controller.AutorController;
 import org.example.diariosecreto.Controller.DiarioController;
 import org.example.diariosecreto.Models.Autor;
 import org.example.diariosecreto.Models.Diario;
+import org.example.diariosecreto.Models.Historial;
 
 public class MainViewController {
 
@@ -24,7 +24,6 @@ public class MainViewController {
 
     AutorController autorController = AutorController.getInstance();
     DiarioController diarioController = DiarioController.getInstance();
-
 
     @FXML
     private ResourceBundle resources;
@@ -76,6 +75,9 @@ public class MainViewController {
 
     @FXML
     private TextField txtTitulo;
+
+    Diario historialDiario = new Diario("","");
+    Historial historial = new Historial();
 
     @FXML
     void addUsuario(ActionEvent event) {
@@ -139,15 +141,22 @@ public class MainViewController {
     @FXML
     void consultarHistorial(ActionEvent event) {
 
+        historial.volver();
+        txtContenido.setText(historial.getHistorial().getContenido());
+        System.out.println("soy yo bebe");
     }
 
     @FXML
     void initialize() {
         initView();
 
+
         txtContenido.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Aquí puedes ejecutar el método que desees cada vez que el texto cambie
-            System.out.println("Texto cambiado: " + newValue);
+
+            historialDiario.setContenido(txtContenido.getText());
+            System.out.println(txtContenido.getText());
+            historial.generarHistorial(historialDiario);
+            System.out.println("hila veve");
         });
     }
 

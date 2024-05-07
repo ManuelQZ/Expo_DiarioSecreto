@@ -18,4 +18,8 @@ public class DiarioMemento {
         this.diario.setContenido(this.contenido);
         this.diario.setAutor(this.autor);
     }
+
+    public String getContenido() {
+        return contenido;
+    }
 }
