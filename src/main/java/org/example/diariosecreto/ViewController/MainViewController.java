@@ -2,6 +2,7 @@ package org.example.diariosecreto.ViewController;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -76,7 +77,7 @@ public class MainViewController {
     @FXML
     private TextField txtTitulo;
 
-    Diario historialDiario = new Diario("","");
+    Diario historialDiario = new Diario("", new String[]{""});
     Historial historial = new Historial();
 
     @FXML
@@ -113,7 +114,8 @@ public class MainViewController {
 
         if(noExiste){
             if (!txtTitulo.getText().isEmpty()){
-                Diario diarioNuevo = new Diario(titulo, txtContenido.getText());
+                String[] contenido = txtContenido.getText().split(" ");
+                Diario diarioNuevo = new Diario(titulo, contenido);
                 this.diarioController.setDiarioTemporal(diarioNuevo);
                 this.ventanaEmergente();
             } else {
@@ -142,8 +144,9 @@ public class MainViewController {
     void consultarHistorial(ActionEvent event) {
 
         historial.volver();
-        txtContenido.setText(historial.getHistorial().getContenido());
-        System.out.println("soy yo bebe");
+        String contenido = String.join(" ", historial.getHistorial().getContenido());
+        txtContenido.setText(contenido);
+        System.out.println(contenido);
     }
 
     @FXML
@@ -152,11 +155,8 @@ public class MainViewController {
 
 
         txtContenido.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            historialDiario.setContenido(txtContenido.getText());
-            System.out.println(txtContenido.getText());
             historial.generarHistorial(historialDiario);
-            System.out.println("hila veve");
+            historialDiario.setContenido(txtContenido.getText().split(" "));
         });
     }
 
@@ -194,7 +194,9 @@ public class MainViewController {
     private void mostrarInformacionDiario(Diario seleccionado) {
         if(seleccionado != null){
             txtTitulo.setText(seleccionado.getTitulo());
-            txtContenido.setText(seleccionado.getContenido());
+            String contenido = String.join(" ", seleccionado.getContenido());
+
+            txtContenido.setText(contenido);
         }
     }
 

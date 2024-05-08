@@ -1,28 +1,29 @@
 package org.example.diariosecreto.Models;
 
-public class Historial {
-    private DiarioMemento historial;
+import java.util.ArrayList;
 
-    private Diario diario;
+public class Historial {
+    private ArrayList<DiarioMemento> historial;
+
 
     public Historial() {
+        this.historial = new ArrayList<>();
 
     }
     public void generarHistorial(Diario diario) {
-        historial = diario.crearMemento();
+        historial.add(diario.crearMemento());
+
     }
+
 
     public void volver() {
         if (historial != null) {
-            historial.restore();
+            historial.removeLast();
+            historial.getLast().restore();
         }
     }
 
-    public Diario getDiario() {
-        return diario;
-    }
-
     public DiarioMemento getHistorial() {
-        return historial;
+        return historial.getLast();
     }
 }
