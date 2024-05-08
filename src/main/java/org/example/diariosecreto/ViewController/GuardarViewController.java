@@ -45,9 +45,22 @@ public class GuardarViewController {
                 String contrasena = txtContrasena.getText();
 
                 autorController.guardarDiario(correo, contrasena, diario);
-                if (!diarioController.getListaDiariosObservable().contains(diario)){
+                Diario eliminable = null;
+                if (diarioController.getListaDiariosObservable().isEmpty()) {
                         diarioController.addDiario(diario);
+                } else {
+                        for (Diario d : diarioController.getListaDiariosObservable()) {
+                                if (d.getTitulo().equals(diario.getTitulo())) {
+                                        eliminable = d;
+                                        diarioController.addDiario(diario);
+                                }
                         }
+                }
+
+                if (eliminable != null) {
+                        diarioController.removeDiario(eliminable);
+                }
+
                 this.mostrarMensaje("Información", "La acción a devuelto el siguiente mensaje: ", autorController.getLog(), Alert.AlertType.INFORMATION);
 
                 this.cerrarVentana();
