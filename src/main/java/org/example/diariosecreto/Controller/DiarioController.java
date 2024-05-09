@@ -41,13 +41,30 @@ public class DiarioController {
     }
 
     public void addDiario(Diario diario) {
-        this.listaDiariosObservable.add(diario);
-        this.factory.getGestorDiario().addDiario(diario);
+        boolean exists = false;
+        for (Diario d : this.getListaDiarios()) {
+            if (d.getTitulo().equals(diario.getTitulo())) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            this.listaDiariosObservable.add(diario);
+            this.factory.getGestorDiario().addDiario(diario);
+        }
     }
 
     public void removeDiario(Diario diario) {
-        this.listaDiariosObservable.remove(diario);
-        this.factory.getGestorDiario().removeDiario(diario);
+        int contador = 0;
+        for (Diario d : this.getListaDiarios()) {
+            if (d.getTitulo().equals(diario.getTitulo())) {
+                this.listaDiariosObservable.remove(contador);
+                this.factory.getGestorDiario().removeDiario(contador);
+                break;
+            }
+            contador++;
+        }
+        System.out.println("Eliminando algo:");
     }
 
     public void sincronizarData() {
@@ -55,7 +72,6 @@ public class DiarioController {
     }
 
     public ArrayList<Diario> getListaDiarios() {
-        sincronizarData();
         return this.factory.getGestorDiario().getDiarios();
     }
 }

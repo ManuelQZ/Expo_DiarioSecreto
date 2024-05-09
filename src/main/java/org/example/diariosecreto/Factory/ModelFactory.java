@@ -33,12 +33,14 @@ public class ModelFactory {
         Autor autor3 = new Autor("Linus Torvalds", "linus@example.com", "contraseña3");
         Autor autor4 = new Autor("Ada Lovelace", "ada@example.com", "contraseña4");
         Autor autor5 = new Autor("Margaret Hamilton", "margaret@example.com", "contraseña5");
+        Autor autor6 = new Autor("Jorge Acosta", "jorge@gmail.com", "123");
 
         this.gestorDiario.addAutor(autor1);
         this.gestorDiario.addAutor(autor2);
         this.gestorDiario.addAutor(autor3);
         this.gestorDiario.addAutor(autor4);
         this.gestorDiario.addAutor(autor5);
+        this.gestorDiario.addAutor(autor6);
     }
 
 

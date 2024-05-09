@@ -24,14 +24,15 @@ public class GestorDiario {
 
     public void addDiario(Diario diario){
         this.diarios.add(diario);
+        System.out.println("Added " + diario.getTitulo());
     }
 
     public void addAutor(Autor autor){
         this.autores.add(autor);
     }
 
-    public void removeDiario(Diario diario){
-        this.diarios.remove(diario);
+    public void removeDiario(int index){
+        this.diarios.remove(index);
     }
 
     public void removeAutor(Autor autor){

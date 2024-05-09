@@ -98,31 +98,14 @@ public class MainViewController {
 
     @FXML
     void guardarDiario(ActionEvent event) {
-
-        String titulo = txtTitulo.getText();
-        ArrayList<Diario> listaDiarios = diarioController.getListaDiarios();
-
-        boolean noExiste = true;
-        for (Diario diario : listaDiarios) {
-
-            if (titulo.equals(diario.getTitulo())) {
-                this.diarioController.setDiarioTemporal(diario);
-                noExiste = false;
-                this.ventanaEmergente();
-            }
+        if(!txtTitulo.getText().isEmpty() ){
+            Diario diario = new Diario(txtTitulo.getText(), txtContenido.getText().split(" "));
+            diarioController.setDiarioTemporal(diario);
+            ventanaEmergente();
+        }else{
+            mostrarMensaje("Error", "Faltan datos", "Debe llenar todos los campos", Alert.AlertType.ERROR);
         }
 
-        if(noExiste){
-            if (!txtTitulo.getText().isEmpty()){
-                String[] contenido = txtContenido.getText().split(" ");
-                Diario diarioNuevo = new Diario(titulo, contenido);
-                this.diarioController.setDiarioTemporal(diarioNuevo);
-                this.ventanaEmergente();
-            } else {
-                this.mostrarMensaje("Error", "Diario NO Guardado", "Los campos estan vacios", Alert.AlertType.ERROR);
-            }
-
-        }
     }
 
     public void ventanaEmergente() {
@@ -131,7 +114,7 @@ public class MainViewController {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("guardar.fxml"));
             scene = new Scene(fxmlLoader.load());
         }catch (Exception e){
-            System.out.println("Hubo un error" + e.getMessage());
+            mostrarMensaje("Error", "Error al cargar la ventana de guardado", e.getMessage(), Alert.AlertType.ERROR);
         }
 
         Stage stage = new Stage();
@@ -146,7 +129,6 @@ public class MainViewController {
         historial.volver();
         String contenido = String.join(" ", historial.getHistorial().getContenido());
         txtContenido.setText(contenido);
-        System.out.println(contenido);
     }
 
     @FXML
@@ -155,8 +137,13 @@ public class MainViewController {
 
 
         txtContenido.textProperty().addListener((observable, oldValue, newValue) -> {
-            historial.generarHistorial(historialDiario);
-            historialDiario.setContenido(txtContenido.getText().split(" "));
+            String contenido = txtContenido.getText();
+            if (contenido != null){
+                if (contenido.charAt(contenido.length() - 1) == ' ') {
+                    historial.generarHistorial(historialDiario);
+                    historialDiario.setContenido(contenido.split(" "));
+                }
+            }
         });
     }
 
